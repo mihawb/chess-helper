@@ -1,0 +1,23 @@
+.preview-card {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	max-width: 80%;
+	max-height: 80%;
+	border: teal 1px solid;
+}
+
+.cb-preview { 
+	max-height: 70vh;
+	max-width: 90vw;
+	border-radius: 10px;
+}
+
+.btns-wrapper {
+	margin: 5px auto 5px auto;
+}
+
+.ctrl-btn {
+	width: 100px;
+	height: 25px;
+}

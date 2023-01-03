@@ -8,8 +8,10 @@ function App() {
 
   const changeHandler = (event) => {
     let f = event.target.files[0]
-		setSelectedImg(f)
-		if (f) setIsImgSelected(true)
+		if (f) {
+      setSelectedImg(f)
+      setIsImgSelected(true)
+    }
 	}
 
   const handleDeletion = () => {
@@ -27,13 +29,15 @@ function App() {
     	{
         method: 'POST',
         body: formData,
-        mode: 'no-cors'
+        headers: { 'Accept': 'application/json' }
       }
     )
-      .then(res => console.log(res))
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        else throw new Error(res.statusText)
+      }) 
       .then(res => console.log('Success:', res))
-      .catch(err => console.log('Error:', err))
+      .catch(err => console.log(err))
 	}
 
   return (
@@ -42,20 +46,20 @@ function App() {
         <h1>Chess Helper</h1>
         <p>let us guide you to win</p>
       </div>
-			{isImgSelected ? (
-        <div>
-          <Preview 
-            selectedImg={selectedImg} 
-            handleSubmission={handleSubmission} 
-            handleDeletion={handleDeletion}
-          />
-				</div>
-			) : (
-        <div className="submit-card">
-				  <h3>Take a photo of a chessboard of choose from library</h3>
-          <input type="file" name="img" onChange={changeHandler} />
-        </div>
-			)}
+      <div className="content">
+        {isImgSelected ? (
+            <Preview 
+              selectedImg={selectedImg} 
+              handleSubmission={handleSubmission} 
+              handleDeletion={handleDeletion}
+            />
+        ) : (
+          <div className="submit-card">
+            <h3>Take a photo of a chessboard of choose from library</h3>
+            <input type="file" name="img" onChange={changeHandler} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

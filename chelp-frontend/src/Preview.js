@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './Preview.css'
 
 const Preview = (props) => {
 	const [imgPreview, setImgPreview] = useState()
@@ -17,9 +18,11 @@ const Preview = (props) => {
 
 	return (
 		<div className="preview-card">
-			<img alt="Preview of uploaded file" src={imgPreview}/>
-			<button onClick={props.handleSubmission}>Submit</button>
-			<button onClick={props.handleDeletion}>Remove</button>
+			<img className="cb-preview" alt="Preview of uploaded file" src={imgPreview}/>
+			<div className="btns-wrapper">
+				<button className="ctrl-btn" onClick={props.handleSubmission}>Submit</button>
+				<button className="ctrl-btn" onClick={props.handleDeletion}>Remove</button>
+			</div>
 		</div>
 	)
 }
