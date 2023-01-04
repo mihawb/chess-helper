@@ -3,7 +3,7 @@ name: Build and deploy Chess Helper to Azure Web App
 on:
   push:
     branches:
-      - main
+      - release
 
 jobs:
   build:
