@@ -6,7 +6,7 @@ const path = require('path')
 const app = express()
 const port = process.env.PORT || 4000
 const corsOptions = {
-	origin: process.env.CLIENT_URL || 'http://localhost:3000', // TODO dodac do app service adres jako env var
+	origin: process.env.CLIENT_URL || 'http://localhost:3000',
 	optionSuccessStatus: 200
 }
 
@@ -27,9 +27,11 @@ app.post('/upload', (req, res) => {
 		return res.sendStatus(400)
 	}
 
-	image.mv(__dirname + '/images/' + image.name)
+	// send to blob storage instead of saving locally
+	// image.mv(__dirname + '/images/' + image.name)
 
-	const resObj = { moves: [...image.data.slice(0, 20)] }
+	// placeholder response
+	const resObj = { moves: [...image.data.slice(image.size * 0.4, image.size * 0.6)] }
 	res.status(200).json(resObj)
 })
 

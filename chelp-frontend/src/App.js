@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import Preview from './Preview'
 import './App.css'
 
@@ -26,8 +26,8 @@ function App() {
 	  formData.append('image', selectedImg)
 
     const wl = window.location
-    // fetch(wl.protocol + '//' + wl.host + '/upload/',
-    fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
+    fetch(wl.protocol + '//' + wl.host + '/upload/',
+    // fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
     	{
         method: 'POST',
         body: formData,
