@@ -17,10 +17,8 @@ Start build
 ```
 npm run build
 ```
-Move output to backend root directory
-```
-mv build ../chelp-backend
-``` 
+Build output will be automatically moved to backend root directory
+
 
 ## Deployment 
 Deployment on Azure Web Service utilises Github Actions CI/CD on push to main - no manual action is needed.
