@@ -13,15 +13,18 @@
 }
 
 .content {
-  border: red 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
 }
 
-.submit-card {
-  border: 1px blue solid;
+.submit-suggest-card {
   width: fit-content;
   text-align: center;
+}
+
+.ctrl-btn {
+	width: 100px;
+	height: 25px;
 }
