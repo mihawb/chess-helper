@@ -17,13 +17,13 @@ jobs:
       
       - name: Build frontend
         run: |
-          cd frontend
+          cd chelp-frontend
           npm install 
           npm run build
           cd ..
       - name: Load backend
         run: |
-          cd backend
+          cd chelp-backend
           npm install
           cd ..
       
@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: CHELP-BE-PROD
-          path: ./backend
+          path: ./chelp-backend
 
   deploy:
     runs-on: ubuntu-latest
