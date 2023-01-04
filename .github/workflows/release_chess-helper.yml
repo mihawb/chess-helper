@@ -1,0 +1,56 @@
+name: Build and deploy Chess Helper to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build frontend and load backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+      
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm install 
+          npm run build
+          cd ..
+      - name: Load backend
+        run: |
+          cd backend
+          npm install
+          cd ..
+      
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: CHELP-BE-PROD
+          path: ./backend
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: CHELP-BE-PROD
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'chess-helper'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_20BFEF73DAE6457683A54F2978B33FB6 }}
+          package: .
