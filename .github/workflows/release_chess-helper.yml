@@ -20,6 +20,7 @@ jobs:
           cd chelp-frontend
           npm install 
           npm run build
+          mv build ../chelp-backend
           cd ..
       - name: Load backend
         run: |
