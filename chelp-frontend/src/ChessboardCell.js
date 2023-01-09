@@ -10,7 +10,7 @@ function ChessboardCell(props) {
     }
     useEffect(() => {
         setImg(props.piece)
-    }, [])
+    }, [props.piece])
     return <>
         <Col onClick={onClickCell} className="d-flex justify-content-center align-items-center" style={{width: "8vh", height: "8vh", backgroundColor: props.color}}>
             <Image style={{backgroundColor: "transparent"}} fluid src={img}></Image>
