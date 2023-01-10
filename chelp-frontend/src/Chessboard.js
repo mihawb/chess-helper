@@ -43,7 +43,6 @@ function Chessboard(props) {
         setTranslatedFen(newFen)
     }
     const generateFen = (fenTable) => {
-        console.log(fenTable)
         let genFen = ""
         fenTable.map(row => {
             row.map( col => {
@@ -88,7 +87,6 @@ function Chessboard(props) {
         globalAns = globalAns.substring(0, globalAns.length-1)
         return globalAns
     }
-    console.log(generateFen(translatedFen))
     return <>
         <Container className="border-bottom-3 border border-dark border-3" style={{width: "65vh", maxHeight: "65vh"}}>
             {translatedFen.map((row, i) => <ChessboardRow row={i} cols={row} changeTranslatedFen={changeTranslatedFen} startColor={getStartColor(i)} key={i} />)}
