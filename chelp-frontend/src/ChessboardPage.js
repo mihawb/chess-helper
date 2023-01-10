@@ -3,7 +3,7 @@ import { Col, Container, ProgressBar, Row } from "react-bootstrap";
 import Chessboard from "./Chessboard";
 import PiecePickerRow from "./PiecePickerRow";
 
-function ChessboardPage() {
+function ChessboardPage(props) {
     const [selected, setSelected] = useState("")
     const [rows, setRows] = useState([["/assets/pw.png","/assets/pb.png"],["/assets/nw.png","/assets/nb.png"],["/assets/bw.png","/assets/bb.png"],
     ["/assets/rw.png","/assets/rb.png"],["/assets/qw.png","/assets/qb.png"],["/assets/kw.png","/assets/kb.png"],["/assets/str.png"]])
@@ -47,6 +47,7 @@ function ChessboardPage() {
                     </ProgressBar>
                 </Col>
             </Row>
+            <p>fen (or stub from backend) debug: {props.fen}</p>
         </Container>
 
     </>

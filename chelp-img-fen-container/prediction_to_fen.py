@@ -34,3 +34,6 @@ def repairFen(fen):
 
     return repairedFen[0:len(repairedFen)-1]
 
+def reverseFen(fen):
+    return fen[::-1]
+
