@@ -43,9 +43,9 @@ def hello_world():
     subprocess.run(["conda", "run", "-n", "python36", "python",  "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
     
     #WINDOWS
-    #subprocess.run(["C:\\Users\PT\\AppData\\Local\\Programs\\Python\\Python310\\python.exe", "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
+    #subprocess.run(["C:/Users/PT/AppData/Local/Programs/Python/Python310/python.exe", "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
 
-    field_crop.cv_chess.crop_fields("to_proceed\\test.jpg")
+    field_crop.cv_chess.crop_fields("to_proceed/test.jpg")
 
     columns=["A","B","C","D","E","F","G","H"]
 
@@ -71,7 +71,16 @@ def hello_world():
         #print(str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
 
         if(prob_difference<PROBABILITY_TRESHOLD or pred_piece_prob<PROBABILITY_TRESHOLD):
-                questionable_fields.append(str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
+                questionable_field={
+                    'col':str(int(((i-1)%8)+1)),
+                    'row':str(8-(int((i-1)/8))),
+                    'piece':str(pred_piece_response)
+                }
+
+
+                # questionable_fields.append(str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
+                print("QUEST.: ",str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
+                questionable_fields.append(questionable_field)
 
 
         print(f"{i}: {pred_piece_prob}")
