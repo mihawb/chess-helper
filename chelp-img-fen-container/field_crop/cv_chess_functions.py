@@ -279,7 +279,7 @@ def x_crop_images(img, points):
     for crop in cropped_items:
         try:
             print("nr: ",local_counter)
-            cv2.imwrite('to_classify_data/'+str(fields_list[int(local_counter/8)])+str(8-(local_counter%8))+'.jpeg', crop)
+            cv2.imwrite('to_classify_data\\'+str(fields_list[int(local_counter/8)])+str(8-(local_counter%8))+'.jpeg', crop)
         except Exception as e:
             print("Blad ze zdj nr:",local_counter)
             print(e)
