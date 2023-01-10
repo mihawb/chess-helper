@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  board-extractor:
+    build: .
+    command: ["python", "-m", "flask", "run"]
+    ports:
+      - 5000:5000

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, ProgressBar, Row } from "react-bootstrap";
 import Chessboard from "./Chessboard";
 import PiecePicker from "./PiecePicker";
 
@@ -19,6 +19,14 @@ function ChessboardPage() {
                 </Col>
                 <Col className="col-3">
                     <Chessboard selected={selected}/>
+                </Col>
+            </Row>
+            <Row className="mt-4 ms-3">
+                <Col className="col-6">
+                    <ProgressBar style={{}}>
+                        <ProgressBar variant="light" now={100} />
+                        <ProgressBar variant="dark" now={100} />
+                    </ProgressBar>
                 </Col>
             </Row>
         </Container>

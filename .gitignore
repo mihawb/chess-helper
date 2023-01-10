@@ -26,4 +26,4 @@ yarn-error.log*
 *.png
 *.jpg
 *.jpeg
-!/*/public/*.png
+!/*/public/assets/*.png
