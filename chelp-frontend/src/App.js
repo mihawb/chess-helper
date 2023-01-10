@@ -7,14 +7,13 @@ import { useState } from 'react';
 import ChessboardPage from './ChessboardPage';
 
 function App() {
-  const [fenFromPhoto, setFenFromPhoto] = useState([]);
-  // for now uses moves array from /upload => to be changed to fen string
-  // will require backend changes but front needs refactoring first
+  const [fen, setFen] = useState('');
+  // for now uses stub (image.name) from /upload => to be changed to fen string
 
   return <>
     <Routes>
-      <Route index element={<MainPage setFen={setFenFromPhoto}/>}/>
-      <Route path='/chessboard' element={<ChessboardPage fen/>}/>
+      <Route index element={<MainPage setFen={setFen}/>}/>
+      <Route path='/chessboard' element={<ChessboardPage fen={fen} setFen={setFen}/>}/>
     </Routes>
   </>
 }

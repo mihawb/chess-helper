@@ -26,8 +26,8 @@ function MainPage(props) {
 	  formData.append('image', selectedImg)
 
     const wl = window.location
-    // fetch(wl.protocol + '//' + wl.host + '/upload/',
-    fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
+    fetch(wl.protocol + '//' + wl.host + '/upload/',
+    // fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
     	{
         method: 'POST',
         body: formData,
@@ -39,7 +39,7 @@ function MainPage(props) {
         else throw new Error(res.statusText)
       }) 
       .then(json => {
-        props.setFen(json.moves)
+        props.setFen(json.fen)
         setIsImgSelected(false)
       })
       .then(nvm => {
