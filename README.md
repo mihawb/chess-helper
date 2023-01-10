@@ -1,5 +1,19 @@
 # Chess Helper
 
+## Cel projektu
+
+## Opis
+
+## Architektura
+
+## Stos technologiczny
+
+## Zespół
+
+## Link do YouTube
+
+## Rozpiska zadań
+
 ## How to use the repository
 This repository utilises monorepo-like approach with trunk-based development.  
 Each module **must** be located in its own root directory.  
@@ -24,3 +38,4 @@ git pull origin main
 git push origin release
 ```
 5. Repeat steps `3.` and `4.` on every other deployment.
+
