@@ -1,10 +1,12 @@
 import Preview from './Preview'
 import React, { useState } from 'react'
 import "./MainPage.css"
-function MainPage() {
-    const [selectedImg, setSelectedImg] = useState()
+import { useNavigate } from 'react-router-dom'
+
+function MainPage(props) {
+  const [selectedImg, setSelectedImg] = useState()
 	const [isImgSelected, setIsImgSelected] = useState(false)
-  const [moves, setMoves] = useState([])
+  const navigate = useNavigate()
 
   const changeHandler = (event) => {
     let f = event.target.files[0]
@@ -17,7 +19,6 @@ function MainPage() {
   const handleDeletion = () => {
     setIsImgSelected(false)
     setSelectedImg(undefined)
-    setMoves([])
   }
 
   const handleSubmission = () => {
@@ -38,8 +39,11 @@ function MainPage() {
         else throw new Error(res.statusText)
       }) 
       .then(json => {
-        setMoves(json.moves)
+        props.setFen(json.fen)
         setIsImgSelected(false)
+      })
+      .then(nvm => {
+        navigate('/chessboard')
       })
       .catch(err => {
         console.log(err)
@@ -61,19 +65,9 @@ function MainPage() {
             />
         ) : (
           <div className="submit-suggest-card">
-            {moves.length === 0 ? (
-              <>
               <h3>Take a photo of a chessboard of choose from library</h3>
-              <input type="file" name="img" onChange={changeHandler} />
-              </>
-            ) : (
-              <>
-              <h3>Suggested moves</h3>
-              {moves.slice(0,5).map(m => <div key={m}>{m}</div>)}
-              <button className="ctrl-btn" onClick={handleDeletion}>Go back</button>
-              </>
-            )}
 
+              <input type="file" name="img" onChange={changeHandler} />
           </div>
         )}
       </div>

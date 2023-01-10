@@ -2,7 +2,6 @@ import { Row } from "react-bootstrap";
 import ChessboardCell from "./ChessboardCell";
 
 function ChessboardRow(props) {
-    const cells = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     const getCellColor = (index) => {
         return index % 2 === 1 ? props.startColor : getOpositeColor(props.startColor)
     }
@@ -11,7 +10,7 @@ function ChessboardRow(props) {
     }
     return <>
         <Row>
-            {cells.map((cell,i) => <ChessboardCell row={props.row} cell={cell} key={cell} color={getCellColor(i)} selected={props.selected} piece={props.rowPieces[i]}/>)}
+            {props.cols.map((col, i) => <ChessboardCell row={props.row} col={i} img={col} color={getCellColor(i)} changeTranslatedFen={props.changeTranslatedFen} key={i} /> )}
         </Row>
     </>
 }
