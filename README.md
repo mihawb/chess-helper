@@ -1,20 +1,21 @@
 # Chess Helper
 
 ## Cel projektu
-Celem projektu jest stworzenie programu, pozwlającego na podstawie obrazu (screenu) szachownicy określić aktualny stan rozgrywki oraz zaproponować optymalne zagrania.
+
+Głównym celem projektu było stworzenie aplikacji webowej umożliwiającej prostsze analizowanie pozycji szachowej z wykorzystaniem silnika szachowego. Poprzez użycie uczenia maszynowego aplikacja swoje działanie opiera tylko na przesłanym zdjęciu.
+
 ## Opis
-Po uruchomieniu aplikacji internetowej użytkownik może wgrać zdjęcie szachownicy które następnie jest zeskanowane oraz wyświetlona zostaje pozycja odczytana ze zdjęcia przez aplikacje. Użytkownik może ręcznie edytować pozycje oraz wybrać stronę która ma rozpocząć grę z podanej pozycji.
+
+W przypadku komputerowej analizy pozycji szachowej, gracze w praktycznie każdym przypadku zmuszeni są do ręcznego wprowadzania konfiguracji szachownicy, która ma zostać poddana ewaluacji. Takie rozwiązanie może okazać się monotonne oraz relatywnie czasochłonne. Zdecydowaliśmy się na spróbowanie innego, bardziej przyjaznego podejścia. Sięgamy po uczenie maszynowe.
+
+Cała procedura rozpoczyna się poprzez zamieszczenie zdjęcia / zrzutu ekranu szachownicy, po czym za pomocą image processingu oraz wizji komputerowej dokonywana jest odpowiednia translacja wykrytych figur oraz ich pól do notacji FEN. Efekt tej translacji jest przetwarzany, a następnie generowana jest szachownica, którą użytkownik własnoręcznie może sprawdzić pod kątem poprawności pozycji (oraz nanieść ewentualne poprawki). Gdy sytuacja na planszy będzie odpowiadać sytuacji początkowej, gracz klikając odpowiedni przycisk wywoła przesłanie ustawienia do silnika (Stockfish), który zwróci ocenę pozycji oraz najlepszy ruch.
+
 ## Architektura
 
 ## Stos technologiczny
 
 ## Zespół
-- Michał Tomaczyk - GitHub: [link](https://github.com/KiczuPL)
-- Daniel Stańkowski - GitHub: [link](https://github.com/Daniel-Stankowski)
-- Michał Banaszczak - GitHub: [link](https://github.com/mihawb)
-- Paweł Tęcza - GitHub: [link](https://github.com/p-tecza)
-- Tomasz Gryczka - GitHub: [link](https://github.com/TomaszGryczka)
-- Krzysztof Romański - GitHub: [link](https://github.com/spykur)
+
 ## Link do YouTube
 
 ## Rozpiska zadań
