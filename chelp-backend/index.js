@@ -37,9 +37,10 @@ app.post('/upload', (req, res) => {
 	// send img to blob storage
 	uploadImageToStorageAccount(image)
 
-	// placeholder response
-	const resObj = { moves: [...image.data.slice(image.size * 0.4, image.size * 0.6)] }
-	res.status(200).json(resObj)
+	// call to containers here, for now sending stub
+	const resFen = { fen: image.name }
+	console.log(resFen)
+	res.status(200).json(resFen)
 })
 
 app.listen(port, () => {

@@ -3,7 +3,7 @@ import { Col, Container, ProgressBar, Row } from "react-bootstrap";
 import Chessboard from "./Chessboard";
 import PiecePicker from "./PiecePicker";
 
-function ChessboardPage() {
+function ChessboardPage(props) {
     const [selected, setSelected] = useState("")
     const changeSelected = (imgSelected) => {
         if(imgSelected==="/assets/trash.png")
@@ -29,6 +29,7 @@ function ChessboardPage() {
                     </ProgressBar>
                 </Col>
             </Row>
+            <p>fen (or stub from backend) debug: {props.fen}</p>
         </Container>
 
     </>
