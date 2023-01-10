@@ -13,12 +13,26 @@ Cała procedura rozpoczyna się poprzez zamieszczenie zdjęcia / zrzutu ekranu s
 ## Architektura
 
 ## Stos technologiczny
-
+-React
+-Docker
+-Python
+-Tensor Flow
+-Open cv
 ## Zespół
+- Michał Tomaczyk - GitHub: [link](https://github.com/KiczuPL)
+- Daniel Stańkowski - GitHub: [link](https://github.com/Daniel-Stankowski)
+- Michał Banaszczak - GitHub: [link](https://github.com/mihawb)
+- Paweł Tęcza - GitHub: [link](https://github.com/p-tecza)
+- Tomasz Gryczka - GitHub: [link](https://github.com/TomaszGryczka)
+- Krzysztof Romański - GitHub: [link](https://github.com/spykur)
 
-## Link do YouTube
+## Schemat działania
+-użytkownik uruchamia aplikacje
+-użytkownik dodaje zdjęcie szachownicy
+-użytkownik może poprawić pozycję wyświetloną na stronie oraz wybiera stronę zaczynającą z danej pozycji
+-użytkownik otrzymuje informacje jaki ruch jest optymalny w danej pozycji
 
-## Rozpiska zadań
+## Link do demo YT
 
 ## How to use the repository
 This repository utilises monorepo-like approach with trunk-based development.  
