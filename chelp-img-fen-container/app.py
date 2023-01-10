@@ -3,7 +3,7 @@ import os
 import subprocess
 from flask import Flask, request
 
-from prediction_to_fen import parseFen, repairFen
+from prediction_to_fen import parseFen, repairFen, reverseFen
 import field_crop.cv_chess
 import requests
 from concurrent.futures import ThreadPoolExecutor
@@ -14,6 +14,9 @@ app = Flask(__name__)
 app.secret_key = "206363ef77d567cc511ff5098395d2b85058952afd5e2b1eecd5aed983805e60"
 
 session = requests.Session()
+
+PROBABILITY_TRESHOLD=0.1
+
 
 def post_url(args):
     with open("to_classify_data/"+str(args[0])+str(args[1])+".jpeg", 'rb') as f:
@@ -31,6 +34,7 @@ def post_url(args):
 def hello_world():
 
     file = request.files['file']
+    whitePerspective = request.form['whitePerspective']
 
     file.save('sent_image/test.jpg')
     file.close()
@@ -38,13 +42,11 @@ def hello_world():
     #DOCKER
     subprocess.run(["conda", "run", "-n", "python36", "python",  "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
     
-    
     #WINDOWS
-    #subprocess.run(["D:\Programy\Python36\python.exe", "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
+    #subprocess.run(["C:\\Users\PT\\AppData\\Local\\Programs\\Python\\Python310\\python.exe", "main.py", "detect", "--input=sent_image/test.jpg", "--output=to_proceed/test.jpg"])
 
-    field_crop.cv_chess.crop_fields("to_proceed/test.jpg")
+    field_crop.cv_chess.crop_fields("to_proceed\\test.jpg")
 
-    images_to_classify=[]
     columns=["A","B","C","D","E","F","G","H"]
 
     fen=""
@@ -57,12 +59,23 @@ def hello_world():
     
     response_list=send_request_in_batches(list_of_request_templates)
     
+    questionable_fields=[]
     for (res, i) in zip(response_list,range(1,65)):
         pred_piece_response=res.json().get('predictions')[0].get('tagName')
+        #pred_piece_response2=res.json().get('predictions')[1].get('tagName')
         pred_piece_prob=res.json().get('predictions')[0].get('probability')
         pred_piece_prob2=res.json().get('predictions')[1].get('probability')
+
+        prob_difference=abs(pred_piece_prob-pred_piece_prob2)
+
+        #print(str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
+
+        if(prob_difference<PROBABILITY_TRESHOLD or pred_piece_prob<PROBABILITY_TRESHOLD):
+                questionable_fields.append(str(columns[int(((i-1)%8))])+str(8-(int((i-1)/8))))
+
+
         print(f"{i}: {pred_piece_prob}")
-        print(f"-----{i}: {pred_piece_prob2}")
+        #print(f"-----{i}: {pred_piece_prob2}")
         #print(col,row,": ",pred_piece_response,res.json().get('predictions')[0].get('probability'))
         print((res, i))
         #if(pred_piece_prob<0.35):
@@ -70,18 +83,22 @@ def hello_world():
         fen+=parseFen(pred_piece_response)
         if i % 8 == 0:
             fen+="/"
-    print(fen)
     fen=repairFen(fen)
-    
-    print(fen)
-    
-    questionable_fields=[]
+
+    if whitePerspective!='true': fen=reverseFen(fen)
+
     any_errors=False
+
+    if len(questionable_fields)>10:
+        any_errors=True
+
     response = {
         'fen':fen,
         'any_errors': any_errors,
         'questionable_fields': questionable_fields
     }
+
+    print(fen)
 
     return response,200
 
