@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import Image from 'react-bootstrap/Image'
 

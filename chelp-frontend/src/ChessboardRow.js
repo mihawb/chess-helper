@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import ChessboardCell from "./ChessboardCell";
 

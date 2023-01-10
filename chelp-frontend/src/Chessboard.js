@@ -1,22 +1,17 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import ChessboardRow from "./ChessboardRow";
 
 function Chessboard(props) {
-    const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8},()=> Array.from({length: 8}, () => "")));
+    const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8}, ()=> Array.from({length: 8}, () => "")));
     const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-    useEffect(() => {
-        setTranslatedFen(translateFen(fen))
+    const isNumeric = useCallback( (char) => {
+        return /^\d+$/.test(char);
     }, [])
-    const translateFen = (fen) => {
-        return fen.split("/").map(row => translateRow(row))
-    }
-    const translateRow = (row) => {
-        let newRow = []
-        row.split("").map(char => isNumeric(char) ? newRow.push(...translateSingle(char)) : newRow.push(translateSingle(char)))
-        return newRow
-    }
-    const translateSingle = (char) => {
+    const isLowerCase = useCallback( (char) => {
+        return char === char.toLowerCase()
+    }, [])
+    const translateSingle = useCallback( (char) => {
         if(isNumeric(char)){
             let array = []
             for(let i=0; i<parseInt(char); i++) {
@@ -26,17 +21,24 @@ function Chessboard(props) {
         } else {
             return "/assets/" + char.toLowerCase() + (isLowerCase(char) ? "b" : "w") + ".png"
         }
-    }
+    },[isNumeric, isLowerCase])
+    const translateRow = useCallback( (row) => {
+        let newRow = []
+        row.split("").map(char => isNumeric(char) ? newRow.push(...translateSingle(char)) : newRow.push(translateSingle(char)))
+        return newRow
+    },[translateSingle, isNumeric])
+
+    const translateFen = useCallback( (fen) => {
+        return fen.split("/").map(row => translateRow(row))
+    }, [translateRow])
+    
+    
+    useEffect(() => {
+        setTranslatedFen(translateFen(fen))
+    }, [translateFen])
     const getStartColor = (index) => {
         return index % 2 === 0 ? "#ebecd0" : "#779556"
     }
-    const isNumeric = (char) => {
-        return /^\d+$/.test(char);
-    }
-    const isLowerCase = (char) => {
-        return char === char.toLowerCase()
-    }
-
     const changeTranslatedFen = (row, col) => {
         let newFen = translatedFen.map(row => row.map(cell => cell));
         newFen[row][col] = props.selected;
@@ -55,8 +57,10 @@ function Chessboard(props) {
                 } else {
                     genFen = genFen + char;
                 }
+                return ""
             })
             genFen = genFen + "/";
+            return ""
         })
         genFen = genFen.substring(0, genFen.length-1)
         return clearEmpty(genFen)
@@ -87,6 +91,7 @@ function Chessboard(props) {
         globalAns = globalAns.substring(0, globalAns.length-1)
         return globalAns
     }
+    generateFen(translatedFen)
     return <>
         <Container className="border-bottom-3 border border-dark border-3" style={{width: "65vh", maxHeight: "65vh"}}>
             {translatedFen.map((row, i) => <ChessboardRow row={i} cols={row} changeTranslatedFen={changeTranslatedFen} startColor={getStartColor(i)} key={i} />)}
