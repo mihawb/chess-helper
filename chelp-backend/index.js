@@ -27,11 +27,10 @@ app.post('/upload', (req, res) => {
 		return res.sendStatus(400)
 	}
 
-	// send to blob storage instead of saving locally
-	// image.mv(__dirname + '/images/' + image.name)
 
 	// placeholder response
 	const resObj = { moves: [...image.data.slice(image.size * 0.4, image.size * 0.6)] }
+	console.log(image.name)
 	res.status(200).json(resObj)
 })
 
