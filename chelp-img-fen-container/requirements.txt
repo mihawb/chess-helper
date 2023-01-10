@@ -1,0 +1,13 @@
+keras==2.1.2
+tensorflow==1.4.0
+scipy==1.0.0
+pyclipper==1.0.6
+numpy==1.13.3
+matplotlib==2.1.1
+h5py==2.7.1
+tables==3.4.2
+opencv-contrib-python==4.5.5.62
+scikit-learn==0.24.2
+flask==2.0.3
+cairosvg
+requests
