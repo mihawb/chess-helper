@@ -3,8 +3,7 @@
 ## Cel projektu
 Celem projektu jest stworzenie programu, pozwlającego na podstawie obrazu (screenu) szachownicy określić aktualny stan rozgrywki oraz zaproponować optymalne zagrania.
 ## Opis
-Po uruchomieniu aplikacji internetowej użytkownik może wgrać zdjęcie szachownicy które następnie jest zeskanowane oraz wyświetlona zostaje pozycja odczytana ze zdjęcia przez aplikacje. 
-Użytkownik może ręcznie edytować pozycje.
+Po uruchomieniu aplikacji internetowej użytkownik może wgrać zdjęcie szachownicy które następnie jest zeskanowane oraz wyświetlona zostaje pozycja odczytana ze zdjęcia przez aplikacje. Użytkownik może ręcznie edytować pozycje oraz wybrać stronę która ma rozpocząć grę z podanej pozycji.
 ## Architektura
 
 ## Stos technologiczny
