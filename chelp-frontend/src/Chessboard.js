@@ -4,7 +4,7 @@ import ChessboardRow from "./ChessboardRow";
 
 function Chessboard(props) {
     const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8}, ()=> Array.from({length: 8}, () => "")));
-    const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+    const fen = "r5k1/pp4pp/3Q1qp1/4P3/8/2P3NP/PP3nP1/R5PK"
     const isNumeric = useCallback( (char) => {
         return /^\d+$/.test(char);
     }, [])
@@ -77,7 +77,7 @@ function Chessboard(props) {
                 } else if(fenRows[i][j] === "e" && j===fenRows[i].length-1) {
                     localAns += freeSpaces + 1
                     freeSpaces = 0
-                } else if(fenRows[i][j] === "e" && freeSpaces !== 0) {
+                } else if(fenRows[i][j] !== "e" && freeSpaces !== 0) {
                     localAns += freeSpaces
                     localAns += fenRows[i][j]
                     freeSpaces = 0
@@ -91,7 +91,7 @@ function Chessboard(props) {
         globalAns = globalAns.substring(0, globalAns.length-1)
         return globalAns
     }
-    generateFen(translatedFen)
+    console.log(generateFen(translatedFen))
     return <>
         <Container className="border-bottom-3 border border-dark border-3" style={{width: "65vh", maxHeight: "65vh"}}>
             {translatedFen.map((row, i) => <ChessboardRow row={i} cols={row} changeTranslatedFen={changeTranslatedFen} startColor={getStartColor(i)} key={i} />)}
