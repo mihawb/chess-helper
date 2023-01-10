@@ -74,7 +74,7 @@ def hello_world():
                 questionable_field={
                     'col':str(int(((i-1)%8)+1)),
                     'row':str(8-(int((i-1)/8))),
-                    'piece':str(pred_piece_response)
+                    'piece':str(parseFen(pred_piece_response))
                 }
 
 
