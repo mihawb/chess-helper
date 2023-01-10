@@ -1,15 +1,21 @@
 # Chess Helper
 
 ## Cel projektu
-
+Celem projektu jest stworzenie programu, pozwlającego na podstawie obrazu (screenu) szachownicy określić aktualny stan rozgrywki oraz zaproponować optymalne zagrania.
 ## Opis
-
+Po uruchomieniu aplikacji internetowej użytkownik może wgrać zdjęcie szachownicy które następnie jest zeskanowane oraz wyświetlona zostaje pozycja odczytana ze zdjęcia przez aplikacje. 
+Użytkownik może ręcznie edytować pozycje.
 ## Architektura
 
 ## Stos technologiczny
 
 ## Zespół
-
+- Michał Tomaczyk - GitHub: [link](https://github.com/KiczuPL)
+- Daniel Stańkowski - GitHub: [link](https://github.com/Daniel-Stankowski)
+- Michał Banaszczak - GitHub: [link](https://github.com/mihawb)
+- Paweł Tęcza - GitHub: [link](https://github.com/p-tecza)
+- Tomasz Gryczka - GitHub: [link](https://github.com/TomaszGryczka)
+- Krzysztof Romański - GitHub: [link](https://github.com/spykur)
 ## Link do YouTube
 
 ## Rozpiska zadań
