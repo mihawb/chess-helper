@@ -3,26 +3,22 @@ import { Button, ButtonGroup, Col, Container, ListGroup, ProgressBar, Row, Toggl
 import Chessboard from "./Chessboard";
 import PiecePickerRow from "./PiecePickerRow";
 
+// for one side so max for both is 2 * this + 1
+const PROGRESS_RANGE = 50
+
 function ChessboardPage(props) {
     const [selected, setSelected] = useState("")
     const [move, setMove] = useState("black")
-    const [blackVal, setBlackVal] = useState(100)
-    const [whiteVal, setWhiteVal] = useState(100)
-    const [bestMoves, setBestMoves] = useState(["h2h3","Qh3"])
+    const [blackVal, setBlackVal] = useState(PROGRESS_RANGE)
+    const [whiteVal, setWhiteVal] = useState(PROGRESS_RANGE)
+    const [bestMoves, setBestMoves] = useState([])
     const [evaluate, setEvaluate] = useState(0)
+    const [evalFen, setEvalFen] = useState(props.fen)
     const [rows, setRows] = useState([["/assets/pw.png","/assets/pb.png"],["/assets/nw.png","/assets/nb.png"],["/assets/bw.png","/assets/bb.png"],
     ["/assets/rw.png","/assets/rb.png"],["/assets/qw.png","/assets/qb.png"],["/assets/kw.png","/assets/kb.png"],["/assets/str.png"]])
 
     const cleared = [["/assets/pw.png","/assets/pb.png"],["/assets/nw.png","/assets/nb.png"],["/assets/bw.png","/assets/bb.png"],
     ["/assets/rw.png","/assets/rb.png"],["/assets/qw.png","/assets/qb.png"],["/assets/kw.png","/assets/kb.png"],["/assets/tr.png"]]
-
-    const stub = () => {
-        setBlackVal(100)
-        setWhiteVal(100)
-        setBestMoves(["h2h3","Qh3"])
-        setEvaluate(0)
-    }
-    if (false) stub() ///////////// STUB GEEZ CAN CI/CD FINALLY SHUT UP
 
     const changeSelectedImage = (row, col) => {
         let newRows = cleared.map(row => row.map(img => img))
@@ -41,6 +37,36 @@ function ChessboardPage(props) {
         changeSelectedImage(row,col)
     }
 
+    const getStockfishEvaluation = () => {
+        const formData = new FormData()
+        formData.append('fen', evalFen)
+        formData.append('side', move)
+        
+        console.log('eval req sent...')
+        console.log(evalFen)
+        console.log(move)
+
+        const wl = window.location
+        fetch(wl.protocol + '//' + wl.host + '/bestmoves/',
+        // fetch(wl.protocol + '//' + wl.hostname + ':4000/bestmoves/', // for speed dev without front build
+            {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }
+        )
+            .then(res => res.json())
+            .then(j => {
+                const bestmoves = j.best_moves.map(m => m.Move)
+                setBestMoves(bestmoves)
+                const diff = j.evaluation.value / 100
+                setEvaluate(diff)
+                setBlackVal(PROGRESS_RANGE - diff)
+                setWhiteVal(PROGRESS_RANGE + diff)
+            })
+            .catch(err => console.log(err))
+    }
+
     return <>
         <Container fluid className="mt-3">
             <Row>
@@ -56,11 +82,11 @@ function ChessboardPage(props) {
                         </ButtonGroup>
                     </Row>
                     <Row className="mt-4 mx-2">
-                        <Button variant="secondary">Send to evaluate</Button>
+                        <Button variant="secondary" onClick={getStockfishEvaluation}>Send to evaluate</Button>
                     </Row>
                 </Col>
                 <Col className="col-8 ms-3 flex-row justify-content-center">
-                    <Chessboard pov={props.pov} fen={props.fen} selected={selected}/>
+                    <Chessboard pov={props.pov} fen={props.fen} setEvalFen={setEvalFen} setFen={props.setFen} selected={selected}/>
                 </Col>
                 <Col className="me-5 align-self-center">
                     <ListGroup >
@@ -76,14 +102,13 @@ function ChessboardPage(props) {
             </Row>
             <Row className="mt-4 ms-3 d-flex flex-row justify-content-center">
                 <Col className="col-6">
-                    <ProgressBar style={{}} min={0} max={201}>
+                    <ProgressBar style={{}} min={0} max={2*PROGRESS_RANGE+1}>
                         <ProgressBar variant="light" now={whiteVal} />
                         <ProgressBar variant="danger" now={1} />
                         <ProgressBar variant="dark" now={blackVal} />
                     </ProgressBar>
                 </Col>
             </Row>
-            <p>fen (or stub from backend) debug: {props.fen}</p>
         </Container>
 
     </>
