@@ -4,7 +4,6 @@ import ChessboardRow from "./ChessboardRow";
 
 function Chessboard(props) {
     const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8}, ()=> Array.from({length: 8}, () => "")));
-    const fen = "r5k1/pp4pp/3Q1qp1/4P3/8/2P3NP/PP3nP1/R5PK"
     const isNumeric = useCallback( (char) => {
         return /^\d+$/.test(char);
     }, [])
@@ -29,13 +28,14 @@ function Chessboard(props) {
     },[translateSingle, isNumeric])
 
     const translateFen = useCallback( (fen) => {
+        if (!props.pov) fen = fen.split("").reverse().join("");
         return fen.split("/").map(row => translateRow(row))
     }, [translateRow])
     
     
     useEffect(() => {
-        setTranslatedFen(translateFen(fen))
-    }, [translateFen])
+        setTranslatedFen(translateFen(props.fen))
+    }, [translateFen, props.fen])
     const getStartColor = (index) => {
         return index % 2 === 0 ? "#ebecd0" : "#779556"
     }
@@ -45,7 +45,7 @@ function Chessboard(props) {
         setTranslatedFen(newFen)
     }
     const generateFen = (fenTable) => {
-        let genFen = ""
+        let genFen = "" ////////////////////////////////////////////////////
         fenTable.map(row => {
             row.map( col => {
                 let color = col.charAt(9)

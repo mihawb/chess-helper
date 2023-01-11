@@ -52,7 +52,7 @@ function ChessboardPage(props) {
                     </Row>
                 </Col>
                 <Col className="col-8 ms-3 flex-row justify-content-center">
-                    <Chessboard selected={selected}/>
+                    <Chessboard pov={props.pov} fen={props.fen} selected={selected}/>
                 </Col>
                 <Col className="me-5 align-self-center">
                     <ListGroup >

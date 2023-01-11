@@ -9,10 +9,10 @@ const ejs = require('ejs');
 
 const app = express()
 const port = process.env.PORT || 4000
-const STORAGE_ACCOUNT_KEY = process.env.STORAGE_ACCOUNT_KEY || 'DefaultEndpointsProtocol=https;AccountName=chesshelpersa;AccountKey=21K/+dqHL/f3Wl8IWyo30jYb1n8uqj8I3ULVqWSyLoKM4VL3Y2ICGOyFwp+q9iHf4Xud+83kdBu/+AStuj2kXQ==;EndpointSuffix=core.windows.net'
-const STORAGE_ACCOUNT_URL = process.env.STORAGE_ACCOUNT_URL || 'https://chesshelpersa.blob.core.windows.net/images/'
-const PIC_TO_FEN_ENDPOINT = process.env.PIC_TO_FEN_ENDPOINT || 'https://image-to-fen-container.kindpebble-1bf309cc.northeurope.azurecontainerapps.io/run'
-const STOCKFISH_ENDPOINT =  process.env.STOCKFISH_ENDPOINT  || 'https://stockfish-conatiner.kindpebble-1bf309cc.northeurope.azurecontainerapps.io/'
+const STORAGE_ACCOUNT_KEY = process.env.STORAGE_ACCOUNT_KEY || null
+const STORAGE_ACCOUNT_URL = process.env.STORAGE_ACCOUNT_URL || null
+const PIC_TO_FEN_ENDPOINT = process.env.PIC_TO_FEN_ENDPOINT || null
+const STOCKFISH_ENDPOINT =  process.env.STOCKFISH_ENDPOINT  || null
 const corsOptions = {
 	origin: process.env.CLIENT_URL || 'http://localhost:3000',
 	optionSuccessStatus: 200
@@ -37,29 +37,24 @@ app.post('/upload', async (req, res) => {
 		return res.sendStatus(400)
 	}
 
-	// change image name (adding unix epoch) to avoid collisions
+	// image name change (adding unix epoch) to avoid collisions
 	image.name = `${Math.floor(Date.now() / 1000)}_${image.name}`
 	
 	const formdata = new FormData()
 	formdata.append('image', `${STORAGE_ACCOUNT_URL}${image.name}`)
 	formdata.append('whitePerspective', pov)
 
-	const body = {
-		image: `${STORAGE_ACCOUNT_URL}${image.name}`,
-		whitePerspective: pov
-	}
-
-	// send img to blob storage only from prod
-	// if (STORAGE_ACCOUNT_KEY)
 	uploadImageToStorageAccount(image)
 		.then(nvm => {
 			fetch(PIC_TO_FEN_ENDPOINT, {
 				method: 'POST',
-				body: body,
-				// headers: {'Content-Type': 'multipart/form-data'}
+				body: formdata,
 			})
-				.then(res => console.log(res))
-				.then(nvm => res.status(200).json({fen: 'stubresponse'}))
+				.then(res => res.json())
+				.then(j => {
+					console.log(j)
+					res.status(200).json(j)
+				})
 		})
 })
 

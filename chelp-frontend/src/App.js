@@ -8,12 +8,12 @@ import ChessboardPage from './ChessboardPage';
 
 function App() {
   const [fen, setFen] = useState('');
-  // for now uses stub (image.name) from /upload => to be changed to fen string
+  const [pov, setPov] = useState(false);
 
   return <>
     <Routes>
-      <Route index element={<MainPage setFen={setFen}/>}/>
-      <Route path='/chessboard' element={<ChessboardPage fen={fen} setFen={setFen}/>}/>
+      <Route index element={<MainPage setFen={setFen} setPov={setPov}/>}/>
+      <Route path='/chessboard' element={<ChessboardPage pov={pov} fen={fen} setFen={setFen}/>}/>
     </Routes>
   </>
 }

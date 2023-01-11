@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 function MainPage(props) {
   const [selectedImg, setSelectedImg] = useState()
 	const [isImgSelected, setIsImgSelected] = useState(false)
-  const [whitePov, setWhitePov] = useState(false)
   const navigate = useNavigate()
 
   const changeHandler = (event) => {
@@ -23,13 +22,13 @@ function MainPage(props) {
   }
 
   const handlePovChange = (event) => {
-    setWhitePov(event.target.checked)
+    props.setPov(event.target.checked)
   }
 
   const handleSubmission = () => {
     const formData = new FormData()
 	  formData.append('image', selectedImg)
-    formData.append('whitePov', whitePov)
+    formData.append('whitePov', props.pov)
 
     const wl = window.location
     // fetch(wl.protocol + '//' + wl.host + '/upload/',
