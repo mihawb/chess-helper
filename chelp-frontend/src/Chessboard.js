@@ -4,7 +4,6 @@ import ChessboardRow from "./ChessboardRow";
 
 function Chessboard(props) {
     const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8}, ()=> Array.from({length: 8}, () => "")));
-    const fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
     const isNumeric = useCallback( (char) => {
         return /^\d+$/.test(char);
     }, [])
@@ -29,13 +28,14 @@ function Chessboard(props) {
     },[translateSingle, isNumeric])
 
     const translateFen = useCallback( (fen) => {
+        if (!props.pov) fen = fen.split("").reverse().join("");
         return fen.split("/").map(row => translateRow(row))
     }, [translateRow])
     
     
     useEffect(() => {
-        setTranslatedFen(translateFen(fen))
-    }, [translateFen])
+        setTranslatedFen(translateFen(props.fen))
+    }, [translateFen, props.fen])
     const getStartColor = (index) => {
         return index % 2 === 0 ? "#ebecd0" : "#779556"
     }
@@ -45,7 +45,7 @@ function Chessboard(props) {
         setTranslatedFen(newFen)
     }
     const generateFen = (fenTable) => {
-        let genFen = ""
+        let genFen = "" ////////////////////////////////////////////////////
         fenTable.map(row => {
             row.map( col => {
                 let color = col.charAt(9)
@@ -77,7 +77,7 @@ function Chessboard(props) {
                 } else if(fenRows[i][j] === "e" && j===fenRows[i].length-1) {
                     localAns += freeSpaces + 1
                     freeSpaces = 0
-                } else if(fenRows[i][j] === "e" && freeSpaces !== 0) {
+                } else if(fenRows[i][j] !== "e" && freeSpaces !== 0) {
                     localAns += freeSpaces
                     localAns += fenRows[i][j]
                     freeSpaces = 0
@@ -91,7 +91,7 @@ function Chessboard(props) {
         globalAns = globalAns.substring(0, globalAns.length-1)
         return globalAns
     }
-    generateFen(translatedFen)
+    console.log(generateFen(translatedFen))
     return <>
         <Container className="border-bottom-3 border border-dark border-3" style={{width: "65vh", maxHeight: "65vh"}}>
             {translatedFen.map((row, i) => <ChessboardRow row={i} cols={row} changeTranslatedFen={changeTranslatedFen} startColor={getStartColor(i)} key={i} />)}

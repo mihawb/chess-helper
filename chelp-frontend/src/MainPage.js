@@ -21,13 +21,18 @@ function MainPage(props) {
     setSelectedImg(undefined)
   }
 
+  const handlePovChange = (event) => {
+    props.setPov(event.target.checked)
+  }
+
   const handleSubmission = () => {
     const formData = new FormData()
 	  formData.append('image', selectedImg)
+    formData.append('whitePov', props.pov)
 
     const wl = window.location
-    fetch(wl.protocol + '//' + wl.host + '/upload/',
-    // fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
+    // fetch(wl.protocol + '//' + wl.host + '/upload/',
+    fetch(wl.protocol + '//' + wl.hostname + ':4000/upload/', // for speed dev without front build
     	{
         method: 'POST',
         body: formData,
@@ -62,6 +67,7 @@ function MainPage(props) {
               selectedImg={selectedImg} 
               handleSubmission={handleSubmission} 
               handleDeletion={handleDeletion}
+              handlePovChange={handlePovChange}
             />
         ) : (
           <div className="submit-suggest-card">

@@ -22,6 +22,8 @@ const Preview = (props) => {
 			<div className="btns-wrapper">
 				<button className="ctrl-btn" onClick={props.handleSubmission}>Submit</button>
 				<button className="ctrl-btn" onClick={props.handleDeletion}>Remove</button>
+				<label for="whitePerspective">White perspective</label>
+				<input type="checkbox" id="whitePerspective" name="whitePerspective" onChange={props.handlePovChange}/>
 			</div>
 		</div>
 	)
