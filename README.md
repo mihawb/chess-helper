@@ -33,7 +33,7 @@ Cała procedura rozpoczyna się poprzez zamieszczenie zdjęcia / zrzutu ekranu s
 - użytkownik otrzymuje informacje jaki ruch jest optymalny w danej pozycji
 
 ## Link do demo YT
-
+Demo-[link](https://youtu.be/NLrMyEAlJfg)
 ## How to use the repository
 This repository utilises monorepo-like approach with trunk-based development.  
 Each module **must** be located in its own root directory.  
