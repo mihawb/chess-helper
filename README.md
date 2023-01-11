@@ -11,15 +11,15 @@ W przypadku komputerowej analizy pozycji szachowej, gracze w praktycznie każdym
 Cała procedura rozpoczyna się poprzez zamieszczenie zdjęcia / zrzutu ekranu szachownicy, po czym za pomocą image processingu oraz wizji komputerowej dokonywana jest odpowiednia translacja wykrytych figur oraz ich pól do notacji FEN. Efekt tej translacji jest przetwarzany, a następnie generowana jest szachownica, którą użytkownik własnoręcznie może sprawdzić pod kątem poprawności pozycji (oraz nanieść ewentualne poprawki). Gdy sytuacja na planszy będzie odpowiadać sytuacji początkowej, gracz klikając odpowiedni przycisk wywoła przesłanie ustawienia do silnika (Stockfish), który zwróci ocenę pozycji oraz najlepszy ruch.
 
 ## Architektura
-
+![Diagram](https://user-images.githubusercontent.com/82446080/211691557-ace781a6-ed6d-4017-aa21-b04c4c6516ff.png)
 ## Stos technologiczny
--React
--Docker
--Python
--Tensor Flow
--Open cv
+- React
+- Docker
+- Python
+- Tensor Flow
+- Open cv
 ## Zespół
-- Michał Tomaczyk - GitHub: [link](https://github.com/KiczuPL)
+- Michał Tomczyk - GitHub: [link](https://github.com/KiczuPL)
 - Daniel Stańkowski - GitHub: [link](https://github.com/Daniel-Stankowski)
 - Michał Banaszczak - GitHub: [link](https://github.com/mihawb)
 - Paweł Tęcza - GitHub: [link](https://github.com/p-tecza)
@@ -27,10 +27,10 @@ Cała procedura rozpoczyna się poprzez zamieszczenie zdjęcia / zrzutu ekranu s
 - Krzysztof Romański - GitHub: [link](https://github.com/spykur)
 
 ## Schemat działania
--użytkownik uruchamia aplikacje
--użytkownik dodaje zdjęcie szachownicy
--użytkownik może poprawić pozycję wyświetloną na stronie oraz wybiera stronę zaczynającą z danej pozycji
--użytkownik otrzymuje informacje jaki ruch jest optymalny w danej pozycji
+- użytkownik uruchamia aplikacje
+- użytkownik dodaje zdjęcie szachownicy
+- użytkownik może poprawić pozycję wyświetloną na stronie oraz wybiera stronę zaczynającą z danej pozycji
+- użytkownik otrzymuje informacje jaki ruch jest optymalny w danej pozycji
 
 ## Link do demo YT
 
