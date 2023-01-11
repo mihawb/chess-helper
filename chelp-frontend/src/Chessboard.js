@@ -32,8 +32,9 @@ function Chessboard(props) {
     },[translateSingle, isNumeric])
 
     const translateFen = useCallback( (fen) => {
-        if (!props.pov) fen = fen.split("").reverse().join("");
-        return fen.split("/").map(row => translateRow(row))
+        let fenToUse = fen
+        if (!props.pov) fenToUse = fenToUse.split("").reverse().join("");
+        return fenToUse.split("/").map(row => translateRow(row))
     }, [translateRow, props.pov])
     
     
