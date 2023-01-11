@@ -42,7 +42,7 @@ function Chessboard(props) {
     }, [translateFen, props.fen])
 
     const getStartColor = (index) => {
-        return index % 2 === 0 ? "#ebecd0" : "#779556"
+        return index % 2 === 0 ? "#779556" : "#ebecd0"  
     }
 
     const changeTranslatedFen = (row, col) => {
