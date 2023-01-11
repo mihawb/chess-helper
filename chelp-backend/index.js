@@ -58,6 +58,26 @@ app.post('/upload', async (req, res) => {
 		})
 })
 
+app.post('/bestmoves', async (req, res) => {
+	const fen = req.body.fen
+	const side = req.body.side
+
+	const formdata = new FormData()
+	formdata.append('fen', fen)
+	formdata.append('side', side[0])
+
+	fetch(STOCKFISH_ENDPOINT, {
+		method: 'POST',
+		body: formdata
+	})
+		.then(res => res.json())
+		.then(j => res.status(200).json(j))
+		.catch(err => {
+			console.log(err)
+			res.status(406).send('Something is wrong with FEN notation')
+})
+})
+
 app.listen(port, () => {
 	console.log(`Chess Helper backend listening on port ${port}`)
 })

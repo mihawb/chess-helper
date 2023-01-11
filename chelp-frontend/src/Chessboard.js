@@ -4,12 +4,15 @@ import ChessboardRow from "./ChessboardRow";
 
 function Chessboard(props) {
     const [translatedFen, setTranslatedFen] = useState(Array.from({length: 8}, ()=> Array.from({length: 8}, () => "")));
+
     const isNumeric = useCallback( (char) => {
         return /^\d+$/.test(char);
     }, [])
+
     const isLowerCase = useCallback( (char) => {
         return char === char.toLowerCase()
     }, [])
+
     const translateSingle = useCallback( (char) => {
         if(isNumeric(char)){
             let array = []
@@ -21,6 +24,7 @@ function Chessboard(props) {
             return "/assets/" + char.toLowerCase() + (isLowerCase(char) ? "b" : "w") + ".png"
         }
     },[isNumeric, isLowerCase])
+
     const translateRow = useCallback( (row) => {
         let newRow = []
         row.split("").map(char => isNumeric(char) ? newRow.push(...translateSingle(char)) : newRow.push(translateSingle(char)))
@@ -36,16 +40,19 @@ function Chessboard(props) {
     useEffect(() => {
         setTranslatedFen(translateFen(props.fen))
     }, [translateFen, props.fen])
+
     const getStartColor = (index) => {
         return index % 2 === 0 ? "#ebecd0" : "#779556"
     }
+
     const changeTranslatedFen = (row, col) => {
         let newFen = translatedFen.map(row => row.map(cell => cell));
         newFen[row][col] = props.selected;
         setTranslatedFen(newFen)
     }
+
     const generateFen = (fenTable) => {
-        let genFen = "" ////////////////////////////////////////////////////
+        let genFen = ""
         fenTable.map(row => {
             row.map( col => {
                 let color = col.charAt(9)
@@ -63,7 +70,9 @@ function Chessboard(props) {
             return ""
         })
         genFen = genFen.substring(0, genFen.length-1)
-        return clearEmpty(genFen)
+        const result = clearEmpty(genFen)
+        props.setEvalFen(result)
+        return result
     }
     const clearEmpty = (notClearedFen) => {
         let globalAns = ""

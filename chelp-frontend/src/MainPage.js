@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function MainPage(props) {
   const [selectedImg, setSelectedImg] = useState()
 	const [isImgSelected, setIsImgSelected] = useState(false)
+  const [sentAndLoading, setSentAndLoading] = useState(false)
   const navigate = useNavigate()
 
   const changeHandler = (event) => {
@@ -19,6 +20,7 @@ function MainPage(props) {
   const handleDeletion = () => {
     setIsImgSelected(false)
     setSelectedImg(undefined)
+    setSentAndLoading(false)
   }
 
   const handlePovChange = (event) => {
@@ -26,6 +28,7 @@ function MainPage(props) {
   }
 
   const handleSubmission = () => {
+    setSentAndLoading(true)
     const formData = new FormData()
 	  formData.append('image', selectedImg)
     formData.append('whitePov', props.pov)
@@ -68,6 +71,7 @@ function MainPage(props) {
               handleSubmission={handleSubmission} 
               handleDeletion={handleDeletion}
               handlePovChange={handlePovChange}
+              sentAndLoading={sentAndLoading}
             />
         ) : (
           <div className="submit-suggest-card">
