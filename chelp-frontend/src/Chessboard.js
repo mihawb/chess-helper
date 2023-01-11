@@ -30,7 +30,7 @@ function Chessboard(props) {
     const translateFen = useCallback( (fen) => {
         if (!props.pov) fen = fen.split("").reverse().join("");
         return fen.split("/").map(row => translateRow(row))
-    }, [translateRow])
+    }, [translateRow, props.pov])
     
     
     useEffect(() => {
